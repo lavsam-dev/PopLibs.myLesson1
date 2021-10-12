@@ -6,25 +6,17 @@ class MainPresenter(private val view: IMainView) {
 
     //Архитектурная ошибка. В качестве практического задания -- исправить
     fun counterClick(type: CounterType) {
-        when (type) {
-            CounterType.FIRST -> {
-                val nextValue = model.next(0)
-                view.setButtonText(0, "привет $nextValue")
-            }
-            CounterType.SECOND -> {
-                val nextValue = model.next(1)
-                view.setButtonText(1, nextValue.toString())
-            }
-            CounterType.THIRD -> {
-                val nextValue = model.next(2)
-                view.setButtonText(2, nextValue.toString())
-            }
+        val nextValue = when (type) {
+            CounterType.COUNTER_OF_DAYS -> model.next(0)
+            CounterType.COUNTER_OF_YEARS -> model.next(1)
+            CounterType.COUNTER_OF_PAYLOAD -> model.next(2)
         }
+        view.setButtonText(type, nextValue.toString())
     }
 }
 
 enum class CounterType {
-    FIRST,
-    SECOND,
-    THIRD
+    COUNTER_OF_DAYS,
+    COUNTER_OF_YEARS,
+    COUNTER_OF_PAYLOAD
 }
