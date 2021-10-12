@@ -1,5 +1,5 @@
 package lavsam.gb.libs.mylesson1
 
-interface MainView {
+interface IMainView {
     fun setButtonText(index: Int, text: String)
 }
