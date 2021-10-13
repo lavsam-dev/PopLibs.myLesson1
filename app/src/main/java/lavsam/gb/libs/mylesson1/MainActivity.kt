@@ -9,12 +9,15 @@ class MainActivity : AppCompatActivity(), IMainView {
 
     private lateinit var mainBinding: ActivityMainBinding
 
-    private val presenter = MainPresenter(this)
+    private lateinit var presenter: MainPresenter
+
+    private var currentView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+        presenter = MainPresenter(this)
 
         val listener = View.OnClickListener {
             val type = when (it.id) {
@@ -31,8 +34,18 @@ class MainActivity : AppCompatActivity(), IMainView {
         mainBinding.btnCounter3.setOnClickListener(listener)
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (mainBinding.root != currentView) {
+            currentView = mainBinding.root
+        }
+    }
+
     override fun onStop() {
         super.onStop()
+        if (mainBinding.root == currentView) {
+            currentView = null
+        }
     }
 
     //Подсказка к ПЗ: поделить на 3 отдельные функции и избавиться от index
