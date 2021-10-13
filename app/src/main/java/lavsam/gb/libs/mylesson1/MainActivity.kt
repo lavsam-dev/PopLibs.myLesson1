@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity(), IMainView {
         }
     }
 
-    //Подсказка к ПЗ: поделить на 3 отдельные функции и избавиться от index
     override fun setButtonText(type: CounterType, text: String) {
         when (type) {
             CounterType.COUNTER_OF_DAYS -> mainBinding.btnCounter1.text = text

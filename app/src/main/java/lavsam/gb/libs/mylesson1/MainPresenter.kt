@@ -4,7 +4,6 @@ class MainPresenter(private val view: IMainView) {
 
     private val model = CountersModel()
 
-    //Архитектурная ошибка. В качестве практического задания -- исправить
     fun counterClick(type: CounterType) {
         val nextValue = when (type) {
             CounterType.COUNTER_OF_DAYS -> model.next(0)
