@@ -2,7 +2,7 @@ package lavsam.gb.libs.mylesson1
 
 import moxy.MvpPresenter
 
-class MainPresenter(val model: CountersModel) : MvpPresenter<IMainView>() {
+class MainPresenter(val model: CountersModel) : MvpPresenter<MainView>() {
 
     fun counterOneClick() {
         viewState.setButtonOneText(model.next(0).toString())

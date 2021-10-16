@@ -7,10 +7,10 @@ import lavsam.gb.libs.mylesson1.databinding.ActivityMainBinding
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
-class MainActivity : MvpAppCompatActivity(), IMainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var vb: ActivityMainBinding
-    private val presenter by moxyPresenter { MainPresenter(CountersModel()) }
+    private val presenter by moxyPresenter { MainPresenter(GithubUsersRepo()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
