@@ -4,55 +4,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import lavsam.gb.libs.mylesson1.databinding.ActivityMainBinding
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class MainActivity : AppCompatActivity(), IMainView {
+class MainActivity : MvpAppCompatActivity(), IMainView {
 
-    private lateinit var mainBinding: ActivityMainBinding
-
-    private lateinit var presenter: MainPresenter
-
-    private var currentView: View? = null
+    private lateinit var vb: ActivityMainBinding
+    private val presenter by moxyPresenter { MainPresenter(CountersModel()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mainBinding.root)
-        presenter = MainPresenter(this)
-
-        val listener = View.OnClickListener {
-            val type = when (it.id) {
-                R.id.btn_counter1 -> CounterType.COUNTER_OF_DAYS
-                R.id.btn_counter2 -> CounterType.COUNTER_OF_YEARS
-                R.id.btn_counter3 -> CounterType.COUNTER_OF_PAYLOAD
-                else -> throw IllegalStateException(getString(R.string.noButton))
-            }
-            presenter.counterClick(type)
-        }
-
-        mainBinding.btnCounter1.setOnClickListener(listener)
-        mainBinding.btnCounter2.setOnClickListener(listener)
-        mainBinding.btnCounter3.setOnClickListener(listener)
+        vb = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(vb.root)
+        vb.btnCounter1.setOnClickListener { presenter.counterOneClick() }
+        vb.btnCounter2.setOnClickListener { presenter.counterTwoClick() }
+        vb.btnCounter3.setOnClickListener { presenter.counterThreeClick() }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (mainBinding.root != currentView) {
-            currentView = mainBinding.root
-        }
+    override fun setButtonOneText(text: String) {
+        vb.btnCounter1.text = text
     }
 
-    override fun onStop() {
-        super.onStop()
-        if (mainBinding.root == currentView) {
-            currentView = null
-        }
+    override fun setButtonTwoText(text: String) {
+        vb.btnCounter2.text = text
     }
 
-    override fun setButtonText(type: CounterType, text: String) {
-        when (type) {
-            CounterType.COUNTER_OF_DAYS -> mainBinding.btnCounter1.text = text
-            CounterType.COUNTER_OF_YEARS -> mainBinding.btnCounter2.text = text
-            CounterType.COUNTER_OF_PAYLOAD -> mainBinding.btnCounter3.text = text
-        }
+    override fun setButtonThreeText(text: String) {
+        vb.btnCounter3.text = text
     }
 }
