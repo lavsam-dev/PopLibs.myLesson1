@@ -1,5 +1,5 @@
 package lavsam.gb.libs.mylesson1
 
-interface IUserItemView: IItemView {
+interface UserItemView: IItemView {
     fun setLogin(text: String)
 }

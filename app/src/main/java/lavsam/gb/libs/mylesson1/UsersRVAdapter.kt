@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import lavsam.gb.libs.mylesson1.databinding.ItemUserBinding
 
 class UsersRVAdapter(val presenter: IUserListPresenter) :
-    RecyclerView.Adapter<UsersRVAdapter.ViewHolder>()
-{
+    RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             ItemUserBinding.inflate(
@@ -20,16 +19,19 @@ class UsersRVAdapter(val presenter: IUserListPresenter) :
             }
         }
 
+    override fun getItemCount() = presenter.getCount()
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         presenter.bindView(holder.apply { pos = position })
 
-    override fun getItemCount(): Int = presenter.getCount()
-
     inner class ViewHolder(val vb: ItemUserBinding) :
-        RecyclerView.ViewHolder(vb.root), IUserItemView {
+        RecyclerView.ViewHolder(vb.root), UserItemView {
+
+        override var pos = -1
+
         override fun setLogin(text: String) = with(vb) {
             tvLogin.text = text
         }
-        override var pos = -1
+
     }
 }

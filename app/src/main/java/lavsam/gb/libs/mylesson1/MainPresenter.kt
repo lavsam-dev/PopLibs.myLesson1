@@ -1,18 +1,16 @@
 package lavsam.gb.libs.mylesson1
 
+import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 
-class MainPresenter(val model: CountersModel) : MvpPresenter<MainView>() {
+class MainPresenter(val router: Router, val screen: IScreens) : MvpPresenter<MainView>() {
 
-    fun counterOneClick() {
-        viewState.setButtonOneText(model.next(0).toString())
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        router.replaceScreen(screen.users())
     }
 
-    fun counterTwoClick() {
-        viewState.setButtonTwoText(model.next(1).toString())
-    }
-
-    fun counterThreeClick() {
-        viewState.setButtonThreeText(model.next(2).toString())
+    fun backClicked() {
+        router.exit()
     }
 }
