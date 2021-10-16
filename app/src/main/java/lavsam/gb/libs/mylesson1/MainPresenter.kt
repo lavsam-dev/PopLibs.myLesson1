@@ -9,10 +9,10 @@ class MainPresenter(val model: CountersModel) : MvpPresenter<IMainView>() {
     }
 
     fun counterTwoClick() {
-        viewState.setButtonOneText(model.next(1).toString())
+        viewState.setButtonTwoText(model.next(1).toString())
     }
 
     fun counterThreeClick() {
-        viewState.setButtonOneText(model.next(2).toString())
+        viewState.setButtonThreeText(model.next(2).toString())
     }
 }
